@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e0661229f6.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Monda&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel='shortcut icon' href='favicon.png' type='image/x-icon'/ >
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="manifest" href="manifest.json" />
+  <title>Super Match</title>
+</head>
+<body>
+<style>
+
+html {
+  scroll-behavior: smooth;
+  overflow: auto;
+  overscroll-behavior: none;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+
+}
+
+#feed {
+  width: 100%;
+  max-width:700px;
+  min-width: 325px;
+  margin: 0 auto;
+  margin-top:55px;
+  margin-bottom: 75px;
+  min-height: 100vh;
+
+}
+
+.table_box {
+  padding: 20px;
+}
+
+table{
+border-collapse:collapse;
+border: 1.5px solid #c0c0c0;
+
+}
+
+table td{
+border:1.5px solid #c0c0c0;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 7px;
+padding-bottom: 7px;
+
+}
+
+.paste_text_area {
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  line-height: 4ch;
+  background-image: linear-gradient(transparent, transparent calc(4ch - 1px), #c6c6c6 0px);
+  background-size: 100% 4ch;
+  border-radius: 15px;
+}
+
+</style>
+
+<script>
+
+//watch "#excel_data_1" for changes
+$(document).ready(function(){
+  $("#excel_data_1").on("change", function(){
+    id = 1;
+    var text_area_name = 'excel_data_' + id;
+    var data = $('textarea[name=' + text_area_name + ']').val();
+    var rows = data.split("\n");
+    data = [];
+    for(var y in rows) {
+        var cells = rows[y].split("\t");
+        for(var x in cells) {
+            //wrap cells in quotes
+            item = {}
+            item ["Name" + id] = cells[x];
+            data.push(item);
+        }
+    }
+
+    //set value of the hidden field
+    var json_data = JSON.stringify(data);
+    $('#json_data_' + id).val(json_data);
+
+    if($('#excel_data_1').length && $('#excel_data_2').length) {
+      $('#supermatch_submit').prop('disabled', false);
+    }
+
+  }
+  )
+}
+)
+
+//watch "#excel_data_2" for changes
+$(document).ready(function(){
+  $("#excel_data_2").on("change", function(){
+    id = 2;
+    var text_area_name = 'excel_data_' + id;
+    var data = $('textarea[name=' + text_area_name + ']').val();
+    var rows = data.split("\n");
+    data = [];
+    for(var y in rows) {
+        var cells = rows[y].split("\t");
+        for(var x in cells) {
+            //wrap cells in quotes
+            item = {}
+            item ["Name" + id] = cells[x];
+            data.push(item);
+        }
+    }
+
+    //set value of the hidden field
+    var json_data = JSON.stringify(data);
+    $('#json_data_' + id).val(json_data);
+
+    if($('#excel_data_1').length && $('#excel_data_2').length) {
+      $('#supermatch_submit').prop('disabled', false);
+    }
+
+  }
+  )
+}
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $('#excel_data_1').bind('input propertychange', function() {
+//   data = [];
+//   for(var y in rows) {
+//       var cells = rows[y].split("\t");
+//       for(var x in cells) {
+//           //wrap cells in quotes
+//           item = {}
+//           item ["Name" + id] = cells[x];
+//           data.push(item);
+//       }
+//   }
+
+//   //set value of the hidden field
+//   $('#json_data_1').val(json_data);
+
+// });
+
+// $('#excel_data_2').bind('input propertychange', function() {
+//   data = [];
+//   for(var y in rows) {
+//       var cells = rows[y].split("\t");
+//       for(var x in cells) {
+//           //wrap cells in quotes
+//           item = {}
+//           item ["Name" + id] = cells[x];
+//           data.push(item);
+//       }
+//   }
+
+//   //set value of the hidden field
+//   $('#json_data_2').val(json_data);
+
+// });
+
+
+
+
+// function generateTable(id) {
+//   var text_area_name = 'excel_data_' + id;
+
+//   var data = $('textarea[name=' + text_area_name + ']').val();
+//   var rows = data.split("\n");
+//   var table = $('<table />');
+
+//   data = [];
+//   for(var y in rows) {
+//       var cells = rows[y].split("\t");
+//       var row = $('<tr />');
+//       for(var x in cells) {
+//           row.append('<td>'+cells[x]+'</td>');
+//           //wrap cells in quotes
+//           item = {}
+//           item ["Name" + id] = cells[x];
+//           data.push(item);
+//       }
+//       table.append(row);
+//   }
+
+//   var json_data = JSON.stringify(data);
+
+//   //set value of the hidden field
+//   $('#json_data_' + id).val(json_data);
+
+//   //display the table
+//   $('#excel_table_' + id).html(table);
+
+//   //if both excel_table_1 and excel_table_2 are present, then enable supermatch button
+
+// }
+
+//submit form through ajax
+$(document).ready(function() {
+
+  $(document).on('submit','.supermatch_form',function(event){
+  
+  event.preventDefault();
+
+  var form_data = $('#supermatch').serialize();
+  var form_action = $('#supermatch').attr('action');
+  
+  
+  $.ajax({
+    url: form_action,
+    type: 'POST',
+    data: form_data,
+    success: function(data) {
+
+      //create new excel_table_1 from json
+      var json_data = JSON.parse(data);
+      var table = $('<table />');
+      for(var y in json_data) {
+          var row = $('<tr />');
+          for(var x in json_data[y]) {
+              row.append('<td>'+json_data[y][x]+'</td>');
+          }
+          table.append(row);
+      }
+      $('#excel_table_1').html(table);
+    }
+  });
+});
+
+});
+
+
+
+</script>
+
+{% block body %}
+
+<div id = "feed">
+  <div>
+    <form id="supermatch" class="supermatch_form" action="/supermatch" method="POST" enctype="multipart/form-data">
+      <input id = "json_data_1" name="json_data_1" type="hidden" value="">
+      <input id = "json_data_2" name ="json_data_2" type="hidden" value="">
+      <button id="supermatch_submit" disabled='disabled'>Supermatch</button>
+    </form>
+  </div>
+  <div style = "display: flex; flex-direction: row;">
+
+    <div class="table_box">  
+          <textarea id="excel_data_1" placeholder="Step 1: Paste a column of data here" cols="2" rows="10" class = "paste_text_area" name="excel_data_1" style="width:20em;height:25em;"></textarea><br>
+    </div>
+
+    <div class="table_box">  
+          <textarea id="excel_data_2" placeholder="Step 2: Paste a column we want to look for matches in here" cols="2" rows="10" class = "paste_text_area" name="excel_data_2" style="width:20em;height:25em;"></textarea><br>
+    </div>
+
+  </div>
+
+
+
+</div>
+
+{% endblock %}    
+
+</body>
+</html>
