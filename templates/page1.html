@@ -132,6 +132,29 @@ padding-bottom: 6px;
   color: #f8f8f8;
 }
 
+.excel_button {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  display: block;
+  margin: 0 auto;
+  background: rgb(33, 163, 102);
+  color: white;
+  margin-top: 10px;
+  
+}
+
+.excel_button a {
+  color: white;
+  text-decoration: none;
+}
+
+.excel_button a:hover{
+  text-decoration: none;
+  
+}
+
 </style>
 
 <script>
@@ -225,12 +248,15 @@ $(document).ready(function() {
   var form_action = $('#supermatch').attr('action');
   
   var loading = $("#loading");
+  var export_button = $('#export_data_to_csv')
   $(document).ajaxStart(function () {
     loading.show();
+    export_button.hide();
   });
 
   $(document).ajaxStop(function () {
     loading.hide();
+    export_button.show();
   });
 
   
@@ -283,7 +309,7 @@ $(document).ready(function() {
 
 //export excel_data_3 to csv
 $(document).ready(function() {
-  $(document).on('click','#export_excel_data_3',function(event){
+  $(document).on('click','#export_data_to_csv',function(event){
     event.preventDefault();
     var filename = "export.csv";
  
@@ -318,18 +344,6 @@ $(document).ready(function() {
    }
   )}
   )
-    
-//     var blob = new Blob([csv], {
-//       type: 'text/csv;charset=utf-8'
-//     });
-//     var csvUrl = URL.createObjectURL(blob);
-//     $(this)
-//       .attr({
-//         'download': filename,
-//         'href': csvUrl
-//       });
-//   });
-// });
 
 
 </script>
@@ -356,11 +370,21 @@ $(document).ready(function() {
   </div>
   </div>
 
+  <div>
+    <div class="button_container">
+      <a href="#" id="export_data_to_csv" hidden>
+        <div class = "excel_button">
+          <i class="fas fa-file-excel"></i> Export Data
+        </div>
+      </a>
+    </div>
+  </div>
+
 <div id = "loading" style="display:block;display:none">
   <i class="fas fa-spinner fa-pulse" style="font-size: 50px;margin-left: 47%;margin-top:20px;color:#31708f;"></i>
 </div>
 
-<a href="#" id="export_excel_data_3">Export Data</a>
+
 
 <input id = "store_json" type="hidden" value="" >
 
