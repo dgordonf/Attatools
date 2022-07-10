@@ -33,7 +33,7 @@ def kindamatch():
         df_2 = pd.read_json(data_2)
 
         # #process distance on both        
-        a = process.cdist(df_1['Name1'], df_2['Name2'], scorer=distance.JaroWinkler.similarity)
+        a = process.cdist(df_1['Name1'].str.lower(), df_2['Name2'].str.lower(), scorer=distance.JaroWinkler.similarity)
      
         a = pd.DataFrame(a, columns = df_2['Name2'])
         a['Name1'] = df_1['Name1']
@@ -60,6 +60,7 @@ def kindamatch():
 
         # # #Convert to json
         df = df.to_json(orient='records')
+
     else: 
         df = '{}'
 

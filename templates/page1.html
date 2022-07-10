@@ -50,22 +50,10 @@ body {
 
 .table_box {
   padding: 20px;
+  width:50%;
 }
 
-table{
-border-collapse:collapse;
-border: 1.5px solid #c0c0c0;
 
-}
-
-table td{
-border:1.5px solid #c0c0c0;
-padding-left: 5px;
-padding-right: 5px;
-padding-top: 7px;
-padding-bottom: 7px;
-
-}
 
 .paste_text_area {
   outline: none;
@@ -77,13 +65,80 @@ padding-bottom: 7px;
   border-radius: 15px;
 }
 
+.output-table {
+  margin: auto;
+  border-collapse: collapse;
+  border-spacing:0;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.output-table td {
+border:1px solid #c0c0c0;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 7px;
+padding-bottom: 7px;
+
+}
+
+.output-table th {
+border:1px solid #c0c0c0;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 6px;
+padding-bottom: 6px;
+}
+
+.output-table tr:last-child td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+    
+.output-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.output-table-actual {
+ margin: auto;
+ border-radius: 15px;
+
+}
+
+.button_container {
+  display: flex;
+  justify-content: center;
+}
+
+.superbutton {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  display: block;
+  margin: 0 auto;
+}
+
+.superbutton:disabled {
+  border: 1px solid #c0c0c0;
+  background-color: #c6c6c6;
+  color: #7d7d7d;
+}
+
+.superbutton:enabled {
+  border: 1px solid #292929;
+  background-color: #161616;
+  color: #f8f8f8;
+}
+
 </style>
 
 <script>
 
 //watch "#excel_data_1" for changes
 $(document).ready(function(){
-  $("#excel_data_1").on("change", function(){
+  $("#excel_data_1").on("input", function(){
     id = 1;
     var text_area_name = 'excel_data_' + id;
     var data = $('textarea[name=' + text_area_name + ']').val();
@@ -103,7 +158,11 @@ $(document).ready(function(){
     var json_data = JSON.stringify(data);
     $('#json_data_' + id).val(json_data);
 
-    if($('#excel_data_1').length && $('#excel_data_2').length) {
+    // if($('#excel_data_1').length && $('#excel_data_2').length) {
+    //   $('#supermatch_submit').prop('disabled', false);
+    // }
+
+    if($('#excel_data_1').val() != "" && $('#excel_data_2').val() != "") {
       $('#supermatch_submit').prop('disabled', false);
     }
 
@@ -114,7 +173,7 @@ $(document).ready(function(){
 
 //watch "#excel_data_2" for changes
 $(document).ready(function(){
-  $("#excel_data_2").on("change", function(){
+  $("#excel_data_2").on("input", function(){
     id = 2;
     var text_area_name = 'excel_data_' + id;
     var data = $('textarea[name=' + text_area_name + ']').val();
@@ -134,98 +193,20 @@ $(document).ready(function(){
     var json_data = JSON.stringify(data);
     $('#json_data_' + id).val(json_data);
 
-    if($('#excel_data_1').length && $('#excel_data_2').length) {
+    // if($('#excel_data_1').length > 2 && $('#excel_data_2').length > 2) {
+    //   $('#supermatch_submit').prop('disabled', false);
+    // }
+
+    //Check if value of json_data_1 and json_data_2 are populated
+    if($('#excel_data_1').val() != "" && $('#excel_data_2').val() != "") {
       $('#supermatch_submit').prop('disabled', false);
     }
+
 
   }
   )
 }
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $('#excel_data_1').bind('input propertychange', function() {
-//   data = [];
-//   for(var y in rows) {
-//       var cells = rows[y].split("\t");
-//       for(var x in cells) {
-//           //wrap cells in quotes
-//           item = {}
-//           item ["Name" + id] = cells[x];
-//           data.push(item);
-//       }
-//   }
-
-//   //set value of the hidden field
-//   $('#json_data_1').val(json_data);
-
-// });
-
-// $('#excel_data_2').bind('input propertychange', function() {
-//   data = [];
-//   for(var y in rows) {
-//       var cells = rows[y].split("\t");
-//       for(var x in cells) {
-//           //wrap cells in quotes
-//           item = {}
-//           item ["Name" + id] = cells[x];
-//           data.push(item);
-//       }
-//   }
-
-//   //set value of the hidden field
-//   $('#json_data_2').val(json_data);
-
-// });
-
-
-
-
-// function generateTable(id) {
-//   var text_area_name = 'excel_data_' + id;
-
-//   var data = $('textarea[name=' + text_area_name + ']').val();
-//   var rows = data.split("\n");
-//   var table = $('<table />');
-
-//   data = [];
-//   for(var y in rows) {
-//       var cells = rows[y].split("\t");
-//       var row = $('<tr />');
-//       for(var x in cells) {
-//           row.append('<td>'+cells[x]+'</td>');
-//           //wrap cells in quotes
-//           item = {}
-//           item ["Name" + id] = cells[x];
-//           data.push(item);
-//       }
-//       table.append(row);
-//   }
-
-//   var json_data = JSON.stringify(data);
-
-//   //set value of the hidden field
-//   $('#json_data_' + id).val(json_data);
-
-//   //display the table
-//   $('#excel_table_' + id).html(table);
-
-//   //if both excel_table_1 and excel_table_2 are present, then enable supermatch button
-
-// }
 
 //submit form through ajax
 $(document).ready(function() {
@@ -234,9 +215,24 @@ $(document).ready(function() {
   
   event.preventDefault();
 
+  //disable button
+  $('#supermatch_submit').prop('disabled', true);
+
+  //hide excel_tabe_3
+  $('#excel_table_3').hide();
+
   var form_data = $('#supermatch').serialize();
   var form_action = $('#supermatch').attr('action');
   
+  var loading = $("#loading");
+  $(document).ajaxStart(function () {
+    loading.show();
+  });
+
+  $(document).ajaxStop(function () {
+    loading.hide();
+  });
+
   
   $.ajax({
     url: form_action,
@@ -246,7 +242,20 @@ $(document).ready(function() {
 
       //create new excel_table_1 from json
       var json_data = JSON.parse(data);
+
+      //store json in #store_json value
+      $('#store_json').val(data);
+
       var table = $('<table />');
+
+      //create table header
+      var header = $('<tr />');
+      header.append('<th>String</th>');
+      header.append('<th>Score</th>');
+      header.append('<th>Match String</th>');
+      header.append('<tr>');
+      table.append(header);
+      
       for(var y in json_data) {
           var row = $('<tr />');
           for(var x in json_data[y]) {
@@ -254,13 +263,73 @@ $(document).ready(function() {
           }
           table.append(row);
       }
-      $('#excel_table_1').html(table);
+
+      table.addClass('output-table-actual');
+      $('#excel_table_3').html(table);
+
+      //unhide excel_table_3
+      $('#excel_table_3').show();
+
     }
   });
-});
+
+  //enable button
+  $('#supermatch_submit').prop('disabled', false);
 
 });
 
+});
+
+
+//export excel_data_3 to csv
+$(document).ready(function() {
+  $(document).on('click','#export_excel_data_3',function(event){
+    event.preventDefault();
+    var filename = "export.csv";
+ 
+    //get data from hidden field
+    var data = $('#store_json').val();
+    var json_data = JSON.parse(data);
+    var csv = "";
+    for(var y in json_data) {
+        var row = "";
+        for(var x in json_data[y]) {
+            row += json_data[y][x] + ",";
+        }
+        csv += row + "\n";
+    }
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, filename);
+    } else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
+   }
+  )}
+  )
+    
+//     var blob = new Blob([csv], {
+//       type: 'text/csv;charset=utf-8'
+//     });
+//     var csvUrl = URL.createObjectURL(blob);
+//     $(this)
+//       .attr({
+//         'download': filename,
+//         'href': csvUrl
+//       });
+//   });
+// });
 
 
 </script>
@@ -268,26 +337,35 @@ $(document).ready(function() {
 {% block body %}
 
 <div id = "feed">
+  <div style = "display: flex; flex-direction: row;">
+    <div class="table_box">  
+          <textarea id="excel_data_1" placeholder="Step 1: Paste a column of data here" cols="2" rows="10" class = "paste_text_area" name="excel_data_1" style="width:100%;height:25em;"></textarea><br>
+    </div>
+    <div class="table_box">  
+          <textarea id="excel_data_2" placeholder="Step 2: Paste a column we want to look for matches in here" cols="2" rows="10" class = "paste_text_area" name="excel_data_2" style="width:100%;height:25em;"></textarea><br>
+    </div>
+  </div>
+
   <div>
+    <div class="button_container">
     <form id="supermatch" class="supermatch_form" action="/supermatch" method="POST" enctype="multipart/form-data">
       <input id = "json_data_1" name="json_data_1" type="hidden" value="">
       <input id = "json_data_2" name ="json_data_2" type="hidden" value="">
-      <button id="supermatch_submit" disabled='disabled'>Supermatch</button>
+      <button id="supermatch_submit" class="superbutton" disabled='disabled'>Supermatch</button>
     </form>
   </div>
-  <div style = "display: flex; flex-direction: row;">
-
-    <div class="table_box">  
-          <textarea id="excel_data_1" placeholder="Step 1: Paste a column of data here" cols="2" rows="10" class = "paste_text_area" name="excel_data_1" style="width:20em;height:25em;"></textarea><br>
-    </div>
-
-    <div class="table_box">  
-          <textarea id="excel_data_2" placeholder="Step 2: Paste a column we want to look for matches in here" cols="2" rows="10" class = "paste_text_area" name="excel_data_2" style="width:20em;height:25em;"></textarea><br>
-    </div>
-
   </div>
 
+<div id = "loading" style="display:block;display:none">
+  <i class="fas fa-spinner fa-pulse" style="font-size: 50px;margin-left: 47%;margin-top:20px;color:#31708f;"></i>
+</div>
 
+<a href="#" id="export_excel_data_3">Export Data</a>
+
+<input id = "store_json" type="hidden" value="" >
+
+  <div id="excel_table_3" class="output-table">
+  </div>  
 
 </div>
 
