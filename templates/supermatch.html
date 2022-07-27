@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e0661229f6.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Monda&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel='shortcut icon' href='favicon.png' type='image/x-icon'/ >
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="manifest" href="manifest.json" />
+  <title>Attatools: SuperMatch</title>
+</head>
+<body>
+<style>
+
+html {
+  scroll-behavior: smooth;
+  overflow: auto;
+  overscroll-behavior: none;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+
+}
+
+#feed {
+  width: 100%;
+  max-width:700px;
+  min-width: 325px;
+  margin: 0 auto;
+  margin-top:55px;
+  margin-bottom: 75px;
+  min-height: 100vh;
+
+}
+
+
+
+.header {
+  background: #ffffff;
+  top: 0; 
+  padding: 5px;
+  border-bottom: 1.5px solid rgb(40, 40, 40);
+  z-index: 999;
+  position: fixed;
+  width: 100%;
+}   
+
+.header_title {
+font-size: 23px;
+font-weight: 500;
+text-decoration: none;
+color: rgb(40, 40, 40);
+}
+
+.header_title:hover, header_title:visited, header_title:link, header_title:active{
+  color: rgb(40, 40, 40);
+  text-decoration: none;
+}
+
+.header_content {
+  margin: 0 auto;
+  display:flex;
+  flex-direction: row;
+  padding-right: 10px;
+  padding-left: 5px;
+  max-width: 825px
+  
+}
+
+.header_icons {
+  display:flex;
+  flex-direction: row;
+ 
+}
+
+
+.header_groups{
+  float:right;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #222222;
+}
+
+.header_groups::focus { color: #5e5e5e; }
+.header_groups:hover { color: #161616; }
+.header_groups:active { color: #c0c0c0; }
+
+
+.header_groups_inactive {
+  float:right;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #949494;
+}
+
+.header_groups_inactive::focus { color: #949494; }
+.header_groups_inactive:hover { color: #949494; }
+.header_groups_inactive:active { color: #c0c0c0; }
+
+
+.header_logout{
+  float:right;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #222222;
+  margin-left: 22px;
+}
+
+.header_logout:hover, .header_logout:visited, .header_logout:link, .header_logout:active{
+  color: #222222;
+  text-decoration: none;
+}
+
+
+.table_box {
+  padding: 20px;
+  width:50%;
+}
+
+
+
+.paste_text_area {
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  line-height: 4ch;
+  background-image: linear-gradient(transparent, transparent calc(4ch - 1px), #c6c6c6 0px);
+  background-size: 100% 4ch;
+  border-radius: 15px;
+}
+
+.output-table {
+  margin: auto;
+  border-collapse: collapse;
+  border-spacing:0;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+.output-table td {
+border:1px solid #c0c0c0;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 7px;
+padding-bottom: 7px;
+
+}
+
+.output-table th {
+border:1px solid #c0c0c0;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 6px;
+padding-bottom: 6px;
+}
+
+.output-table tr:last-child td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+    
+.output-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+.output-table-actual {
+ margin: auto;
+ border-radius: 15px;
+
+}
+
+.button_container {
+  display: flex;
+  justify-content: center;
+}
+
+.superbutton {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  display: block;
+  margin: 0 auto;
+}
+
+.superbutton:disabled {
+  border: 1px solid #c0c0c0;
+  background-color: #c6c6c6;
+  color: #7d7d7d;
+}
+
+.superbutton:enabled {
+  border: 1px solid #292929;
+  background-color: #161616;
+  color: #f8f8f8;
+}
+
+.excel_button {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  display: block;
+  margin: 0 auto;
+  background: rgb(33, 163, 102);
+  color: white;
+  margin-top: 10px;
+  
+}
+
+.excel_button a {
+  color: white;
+  text-decoration: none;
+}
+
+.excel_button a:hover{
+  text-decoration: none;
+  
+}
+
+
+.app_header{
+  font-size: 50px;
+  font-weight:600;
+  background: -webkit-linear-gradient(46deg, #f89b29, #ff1cad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 62px;
+}
+
+.app_wrap{
+  font-size: 50px;
+  font-weight:600;
+  color: white;
+  background: -webkit-linear-gradient(134deg, #f89b29, #ff1cad);
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 10px;
+
+}
+
+.help_text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #5b5b5b;
+  margin-top: 10px;
+}
+</style>
+
+<script>
+
+//watch "#excel_data_1" for changes
+$(document).ready(function(){
+  $("#excel_data_1").on("input", function(){
+    id = 1;
+    var text_area_name = 'excel_data_' + id;
+    var data = $('textarea[name=' + text_area_name + ']').val();
+    var rows = data.split("\n");
+    data = [];
+    for(var y in rows) {
+        var cells = rows[y].split("\t");
+        data.push(cells);
+
+    }
+
+    //set value of the hidden field
+    var json_data = JSON.stringify(data);
+    $('#json_data_' + id).val(json_data);
+
+    // if($('#excel_data_1').length && $('#excel_data_2').length) {
+    //   $('#supermatch_submit').prop('disabled', false);
+    // }
+
+    if($('#excel_data_1').val() != "" && $('#excel_data_2').val() != "") {
+      $('#supermatch_submit').prop('disabled', false);
+    }
+
+  }
+  )
+}
+)
+
+//watch "#excel_data_2" for changes
+$(document).ready(function(){
+  $("#excel_data_2").on("input", function(){
+    id = 2;
+    var text_area_name = 'excel_data_' + id;
+    var data = $('textarea[name=' + text_area_name + ']').val();
+    var rows = data.split("\n");
+    data = [];
+    for(var y in rows) {
+        var cells = rows[y].split("\t");
+        for(var x in cells) {
+          data.push(cells);
+        }
+    }
+
+    //set value of the hidden field
+    var json_data = JSON.stringify(data);
+    $('#json_data_' + id).val(json_data);
+
+    // if($('#excel_data_1').length > 2 && $('#excel_data_2').length > 2) {
+    //   $('#supermatch_submit').prop('disabled', false);
+    // }
+
+    //Check if value of json_data_1 and json_data_2 are populated
+    if($('#excel_data_1').val() != "" && $('#excel_data_2').val() != "") {
+      $('#supermatch_submit').prop('disabled', false);
+    }
+
+
+  }
+  )
+}
+)
+
+//submit form through ajax
+$(document).ready(function() {
+
+  $(document).on('submit','.supermatch_form',function(event){
+  
+  event.preventDefault();
+
+  //disable button
+  $('#supermatch_submit').prop('disabled', true);
+
+  //hide excel_tabe_3
+  $('#excel_table_3').hide();
+
+  var form_data = $('#supermatch').serialize();
+  var form_action = $('#supermatch').attr('action');
+  
+  var loading = $("#loading");
+  var export_button = $('#export_data_to_csv')
+  $(document).ajaxStart(function () {
+    loading.show();
+    export_button.hide();
+    window.scrollTo(0, $('#supermatch').offset().top)
+  });
+
+  $(document).ajaxStop(function () {
+    loading.hide();
+    export_button.show();
+    window.scrollTo(0, $('#supermatch').offset().top)
+  });
+
+  
+  $.ajax({
+    url: form_action,
+    type: 'POST',
+    data: form_data,
+    success: function(data) {
+
+      //create new excel_table_1 from json
+      var json_data = JSON.parse(data);
+
+      //store json in #store_json value
+      $('#store_json').val(data);
+
+      var table = $('<table />');
+
+      //create table header
+      var header = $('<tr />');
+      header.append('<th>String</th>');
+      header.append('<th>Match Score</th>');
+      header.append('<th>Match String</th>');
+      header.append('<tr>');
+      table.append(header);
+      
+      for(var y in json_data) {
+          var row = $('<tr />');
+          for(var x in json_data[y]) {
+              row.append('<td>'+json_data[y][x]+'</td>');
+          }
+          table.append(row);
+      }
+
+      table.addClass('output-table-actual');
+      $('#excel_table_3').html(table);
+
+      //unhide excel_table_3
+      $('#excel_table_3').show();
+
+    }
+  });
+
+  //enable button
+  $('#supermatch_submit').prop('disabled', false);
+
+});
+
+});
+
+
+//export excel_data_3 to csv
+$(document).ready(function() {
+  $(document).on('click','#export_data_to_csv',function(event){
+    event.preventDefault();
+    var filename = "export.csv";
+ 
+    //get data from hidden field
+    var data = $('#store_json').val();
+    var json_data = JSON.parse(data);
+    var csv = "";
+    for(var y in json_data) {
+        var row = "";
+        for(var x in json_data[y]) {
+            row += json_data[y][x] + ",";
+        }
+        csv += row + "\n";
+    }
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, filename);
+    } else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+
+   }
+  )}
+  )
+
+
+</script>
+
+{% block body %}
+
+<div class = "header" id= "header">
+  <div class="header_content">
+    <div style = "flex: 1 9999 0%; min-width:40px;">
+      <a href="/" class = "header_title">Attatools</a> 
+      </div> 
+     <div class = "header_icons">
+      
+     </div>
+</div>
+</div>
+
+
+
+<div id = "feed">
+  <div style="display:flex;margin-top: 81px;"><i class="fas fa-water app_wrap" style="height: 65px;"></i> <span class="app_header">SuperMatch</span></div>
+  <div class="help_text">
+    <p>
+      SuperMatch is a tool that allows you to compare two sets of strings and find the best matches.
+    </p>
+    <p>
+      To use the tool, paste excel columns of strings (words) into each text area below. Then click the "Supermatch" button. The tool will return a table of the best matches and a "Match Score". </p>
+    <p>
+      The "Match Score" shows how close of a match the app found. A `1` is a perfect match, `0` is a terrible match, `.85` is a decent match. Typically matches around `.85` are good enough, but this will depend on what you are trying to match. 
+    </p>
+  </div>
+  <div style = "display: flex; flex-direction: row;">
+    <div class="table_box">  
+          <textarea id="excel_data_1" placeholder="Step 1: Paste a column of data here" cols="2" rows="10" class = "paste_text_area" name="excel_data_1" style="width:100%;height:25em;"></textarea><br>
+    </div>
+    <div class="table_box">  
+          <textarea id="excel_data_2" placeholder="Step 2: Paste a column we want to look for matches in here" cols="2" rows="10" class = "paste_text_area" name="excel_data_2" style="width:100%;height:25em;"></textarea><br>
+    </div>
+  </div>
+
+  <div>
+    <div class="button_container">
+    <form id="supermatch" class="supermatch_form" action="/backend/supermatch" method="POST" enctype="multipart/form-data">
+      <input id = "json_data_1" name="json_data_1" type="hidden" value="">
+      <input id = "json_data_2" name ="json_data_2" type="hidden" value="">
+      <button id="supermatch_submit" class="superbutton" disabled='disabled'>Supermatch</button>
+    </form>
+  </div>
+  </div>
+
+  <div>
+    <div class="button_container">
+      <a href="#" id="export_data_to_csv" hidden>
+        <div class = "excel_button">
+          <i class="fas fa-file-excel"></i> Export Data
+        </div>
+      </a>
+    </div>
+  </div>
+
+<div id = "loading" style="display:block;display:none">
+  <i class="fas fa-spinner fa-pulse" style="font-size: 50px;margin-left: 47%;margin-top:20px;color:#31708f;"></i>
+</div>
+
+
+
+<input id = "store_json" type="hidden" value="" >
+
+  <div id="excel_table_3" class="output-table">
+  </div>  
+
+</div>
+
+{% endblock %}    
+
+</body>
+</html>
